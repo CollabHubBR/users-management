@@ -1,0 +1,71 @@
+name: Sugestão de Feature
+description: Sugestão de uma feature que você acredite melhorar a experiência do usuário
+title: "[Feature]: "
+labels: ["enhancement"]
+body:
+  - type: markdown
+    attributes:
+      value: Obrigado por dedicar seu tempo para preencher esta sugestão de recurso! Preencha tudo o que puder para garantir que esteja fornecendo o máximo de informações possível, para uma revisão rápida!
+
+  - type: checkboxes
+    id: terms
+    attributes:
+      label: Guidelines
+      description: "Ao enviar este formulário você concorda em seguir nossas diretrizes: [Código de Conduta](https://github.com/CollabHubBR/.github/blob/main/CODE_OF_CONDUCT.md), [Contribuição](https://github.com/CollabHubBR/.github/blob/main/CONTRIBUTING.md), [Segurança](https://github.com/CollabHubBR/.github/blob/main/SECURITY.md) e [Suporte](https://github.com/CollabHubBR/.github/blob/main/SUPPORT.md)."
+      options:
+        - label: Eu concordo em seguir as Diretrizes do Projeto.
+          required: true
+
+  - type: textarea
+    id: description
+    attributes:
+      label: Descrição
+      description: Descreva de forma clara e concisa o que gostaria de mudar ou adicionar.
+      placeholder: Conte-nos sua ideia
+    validations:
+      required: true
+
+  - type: textarea
+    id: problem
+    attributes:
+      label: Problema
+      description: A feature sugerida tem relação com algum problema?
+      placeholder: Diga-nos qual problema ela resolve
+    validations:
+      required: true
+
+  - type: textarea
+    id: solution
+    attributes:
+      label: Solução Proposta
+      description: Como você propõe a solução/implementação?
+      placeholder: Escreva como acredita que deva ser implementada a feature
+    validations:
+      required: true
+
+  - type: textarea
+    id: alternatives
+    attributes:
+      label: Alternativas Consideradas
+      description: Há alguma alternativa caso ocorra um impedimento?
+      placeholder: Apresente soluções alternativas ou semelhantes
+    validations:
+      required: true
+
+  - type: textarea
+    id: screenshots
+    attributes:
+      label: Screenshots ou Videos
+      description: Adicione links para gifs, videos ou materiais extra como referência.
+      placeholder: https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExdG80aGdxZjNiY3JvMWY1ZzR6dDlsZ3FsejJ3aHdnN2k5MWQ4Y2VvaSZlcD12MV9naWZzX3NlYXJjaCZjdD1n/QMHoU66sBXqqLqYvGO/giphy.gif
+    validations:
+      required: false
+
+  - type: textarea
+    id: additional
+    attributes:
+      label: Informações Adicionais
+      description: Adicione qualquer outro conteúdo útil à feature apresentada
+      placeholder: ...
+    validations:
+      required: false

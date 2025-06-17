@@ -1,0 +1,111 @@
+name: Reporte de Bug
+description: Reporte de um problema encontrado que não se qualifique como falha de segurança
+title: "[Bug]: "
+labels: ["bug"]
+body:
+  - type: markdown
+    attributes:
+      value: Obrigado por dedicar seu tempo para preencher este report de byg! Preencha tudo o que puder para garantir que esteja fornecendo o máximo de informações possível, para uma revisão rápida!
+
+  - type: checkboxes
+    id: terms
+    attributes:
+      label: Guidelines
+      description: "Ao enviar este formulário você concorda em seguir nossas diretrizes: [Código de Conduta](https://github.com/CollabHubBR/.github/blob/main/CODE_OF_CONDUCT.md), [Contribuição](https://github.com/CollabHubBR/.github/blob/main/CONTRIBUTING.md), [Segurança](https://github.com/CollabHubBR/.github/blob/main/SECURITY.md) e [Suporte](https://github.com/CollabHubBR/.github/blob/main/SUPPORT.md)."
+      options:
+        - label: Eu concordo em seguir as Diretrizes do Projeto.
+          required: true
+
+  - type: checkboxes
+    id: severity
+    attributes:
+      label: Severidade
+      description: Qual é a severidade do bug encontrado? Escolha apenas uma opção.
+      options:
+        - label: Baixa
+        - label: Médio
+        - label: Alta
+
+  - type: input
+    id: version
+    attributes:
+      label: Versão do Projeto
+      description: Qual versão do projeto foi afetada?
+      placeholder: "1.0, 2.2, <=2.3, >=3.0.1"
+    validations:
+      required: true
+
+  - type: input
+    id: platform
+    attributes:
+      label: Versão do Navegador
+      description: Qual o navegador/versão foram afetados?
+      placeholder: "Safari 12, Chrome, Firefox 131.0.2"
+    validations:
+      required: true
+
+  - type: input
+    id: devices
+    attributes:
+      label: Dispositivos Afetados
+      description: O problema ocorre em dispositivos específicos?
+      placeholder: "iPhone X, iPhone SE, iPad Air, MacBook Pro, WindowsPhone, All"
+    validations:
+      required: true
+
+  - type: input
+    id: existing-issues
+    attributes:
+      label: Issues Existentes
+      description: Há alguma issue similar a este bug?
+      placeholder: "#42"
+    validations:
+      required: false
+
+  - type: textarea
+    id: description
+    attributes:
+      label: Descrição
+      description: Descreva de forma clara e concisa o problema encontrado.
+      placeholder: Conte-nos mais sobre o bug
+    validations:
+      required: true
+
+  - type: textarea
+    id: repro-steps
+    attributes:
+      label: Passos Para Reprodução
+      value: |
+        1. 
+        2. 
+        3. 
+        ...
+    validations:
+      required: true
+
+  - type: textarea
+    id: expected-behavior
+    attributes:
+      label: Comportamento Esperado
+      description: O que deveria ter acontecido?
+      placeholder: Ainda que já esteja claro, detalhe o quanto puder
+    validations:
+      required: true
+
+  - type: textarea
+    id: attachments
+    attributes:
+      label: Anexos
+      description: Inclua stacktraces, capturas de tela ou qualquer outro conteúdo relevante adicional
+      placeholder: ...
+    validations:
+      required: false
+
+  - type: textarea
+    id: additional
+    attributes:
+      label: Informações Adicionais
+      description: Adicione qualquer outro conteúdo útil ao debug em questão
+      placeholder: ...
+    validations:
+      required: false
