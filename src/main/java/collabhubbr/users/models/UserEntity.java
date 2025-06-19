@@ -3,8 +3,6 @@ package collabhubbr.users.models;
 import jakarta.persistence.*;
 import lombok.*;
 
-import java.util.Collection;
-
 @Entity
 @Data
 @NoArgsConstructor
@@ -17,7 +15,12 @@ public class UserEntity {
     private String username;
     private String email;
     private String password;
+    private RoleName roles;
 
-    @OneToMany(cascade = CascadeType.ALL)
-    private Collection<RoleEntity> roles;
+    @PrePersist
+    protected void onCreate() {
+        if (this.roles == null) {
+            this.roles = RoleName.PUBLIC_USER;
+        }
+    }
 }
