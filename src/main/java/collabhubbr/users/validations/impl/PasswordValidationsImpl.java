@@ -1,6 +1,7 @@
 package collabhubbr.users.validations.impl;
 
-import collabhubbr.users.DTO.RequestLoginDTO;
+import collabhubbr.users.controller.DTO.RequestLoginDTO;
+import collabhubbr.users.exceptions.CredentialsExceptions;
 import collabhubbr.users.models.UserEntity;
 import collabhubbr.users.validations.PasswordValidations;
 import lombok.RequiredArgsConstructor;
@@ -19,7 +20,7 @@ public class PasswordValidationsImpl implements PasswordValidations {
     public void validate(RequestLoginDTO user, UserEntity userEntity) {
         if (!this.passwordEncoder.matches(user.password(), userEntity.getPassword())) {
             log.error("Invalid email or password for user: [{}]", user.email());
-            throw new IllegalArgumentException("Email ou senha inválidos");
+            throw new CredentialsExceptions("Email ou senha inválidos");
         }
     }
 

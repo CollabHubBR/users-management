@@ -1,4 +1,4 @@
-package collabhubbr.users.DTO;
+package collabhubbr.users.controller.DTO;
 
 import collabhubbr.users.models.UserEntity;
 

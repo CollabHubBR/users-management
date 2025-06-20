@@ -1,7 +1,8 @@
-package collabhubbr.users.security;
+package collabhubbr.users.infra.security;
 
 import collabhubbr.users.models.UserEntity;
 import collabhubbr.users.repository.UserRepository;
+import collabhubbr.users.service.impl.TokenServiceImpl;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
@@ -18,7 +19,7 @@ import java.util.Collections;
 @Component
 public class SecurityFilter extends OncePerRequestFilter {
     @Autowired
-    private TokenService tokenService;
+    private TokenServiceImpl tokenServiceImpl;
 
     @Autowired
     private UserRepository userRepository;
@@ -31,7 +32,7 @@ public class SecurityFilter extends OncePerRequestFilter {
     ) throws ServletException, IOException {
         var token = this.recoverToken(request);
 
-        var login = tokenService.validateToken(token);
+        var login = tokenServiceImpl.validateToken(token);
 
         if(login != null){
             UserEntity user = userRepository.findByEmail(login).orElseThrow(

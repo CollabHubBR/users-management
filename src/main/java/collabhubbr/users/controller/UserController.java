@@ -1,33 +1,68 @@
 package collabhubbr.users.controller;
 
-import collabhubbr.users.DTO.*;
-import collabhubbr.users.service.UserService;
+import collabhubbr.users.controller.DTO.RequestLoginDTO;
+import collabhubbr.users.controller.DTO.RequestUserDTO;
+import collabhubbr.users.controller.DTO.ResponseLoginDTO;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.media.Schema;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
-import lombok.RequiredArgsConstructor;
-import lombok.extern.log4j.Log4j2;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
 
-
-@Log4j2
-@RestController
+@Tag(name = "User Authentication", description = "Endpoints for user authentication")
 @RequestMapping("/api/auth")
-@RequiredArgsConstructor
-public class UserController {
-    private final UserService userService;
+public interface UserController {
 
+    @Operation(
+            summary = "User Registration",
+            description = "Register a new user"
+    )
+    @ApiResponses(value = {
+            @ApiResponse(
+                    responseCode = "201",
+                    description = "User registered successfully"
+            ),
+            @ApiResponse(
+                    responseCode = "400",
+                    description = "Invalid user data",
+                    content = @Content(schema = @Schema(hidden = true))
+            ),
+            @ApiResponse(
+                    responseCode = "409",
+                    description = "Email already in use",
+                    content = @Content(schema = @Schema(hidden = true))
+            )
+    })
     @PostMapping("/register")
-    public ResponseEntity<Void> register(@Valid @RequestBody RequestUserDTO user) {
-        log.info("Received request at endpoint /api/auth/register");
-        this.userService.createAccount(user);
-        return ResponseEntity.status(HttpStatus.CREATED).build();
-    }
+    ResponseEntity<Void> register(@Valid @RequestBody RequestUserDTO user);
 
+    @Operation(
+            summary = "User Login",
+            description = "Authenticate a user and return a JWT token"
+    )
+    @ApiResponses(value = {
+            @ApiResponse(
+                    responseCode = "200",
+                    description = "User logged in successfully, returns JWT token"
+            ),
+            @ApiResponse(
+                    responseCode = "400",
+                    description = "Invalid user data",
+                    content = @Content(schema = @Schema(hidden = true))
+            ),
+            @ApiResponse(
+                    responseCode = "401",
+                    description = "Invalid email or password",
+                    content = @Content(schema = @Schema(hidden = true))
+            )
+    })
     @PostMapping("/login")
-    public ResponseEntity<ResponseLoginDTO> login(@Valid @RequestBody RequestLoginDTO user) {
-        log.info("Received request at endpoint /api/auth/login");
-        return ResponseEntity.ok().body(userService.loginAccount(user));
-    }
+    ResponseEntity<ResponseLoginDTO> login(@Valid @RequestBody RequestLoginDTO user);
 
 }
