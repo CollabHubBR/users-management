@@ -1,6 +1,6 @@
 package collabhubbr.users.validations.impl;
 
-import collabhubbr.users.DTO.RequestLoginDTO;
+import collabhubbr.users.controller.DTO.RequestLoginDTO;
 import collabhubbr.users.models.UserEntity;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
