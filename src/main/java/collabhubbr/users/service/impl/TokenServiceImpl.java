@@ -1,4 +1,4 @@
-package collabhubbr.users.security;
+package collabhubbr.users.service.impl;
 
 import collabhubbr.users.models.UserEntity;
 import com.auth0.jwt.JWT;
@@ -13,7 +13,7 @@ import java.time.LocalDateTime;
 import java.time.ZoneOffset;
 
 @Service
-public class TokenService {
+public class TokenServiceImpl {
     @Value("${api.security.token.secret}")
     private String secret;
 
