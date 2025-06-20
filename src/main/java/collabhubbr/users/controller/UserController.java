@@ -4,6 +4,7 @@ import collabhubbr.users.DTO.*;
 import collabhubbr.users.service.UserService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -16,7 +17,7 @@ public class UserController {
 
     @PostMapping("/register")
     public ResponseEntity<ResponseNewUserDTO> register(@Valid @RequestBody RequestNewUserDTO user) {
-        return ResponseEntity.ok().body(userService.createAccount(user));
+        return ResponseEntity.status(HttpStatus.CREATED).body(userService.createAccount(user));
     }
 
     @PostMapping("/login")
