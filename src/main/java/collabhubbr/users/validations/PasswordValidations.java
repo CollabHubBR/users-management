@@ -1,0 +1,8 @@
+package collabhubbr.users.validations;
+
+import collabhubbr.users.DTO.RequestLoginDTO;
+import collabhubbr.users.models.UserEntity;
+
+public interface PasswordValidations {
+    void validate(RequestLoginDTO user, UserEntity userEntity);
+}

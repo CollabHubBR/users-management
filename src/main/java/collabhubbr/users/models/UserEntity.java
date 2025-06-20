@@ -1,10 +1,12 @@
 package collabhubbr.users.models;
 
+import collabhubbr.users.DTO.RequestUserDTO;
 import jakarta.persistence.*;
 import lombok.*;
 
 @Entity
 @Data
+@Builder
 @NoArgsConstructor
 @AllArgsConstructor
 public class UserEntity {
@@ -16,6 +18,25 @@ public class UserEntity {
     private String email;
     private String password;
     private RoleName roles;
+
+    public UserEntity(RequestUserDTO requestUserDTO) {
+        this.username = requestUserDTO.username();
+        this.email = requestUserDTO.email();
+        this.password = requestUserDTO.password();
+        this.roles = RoleName.PUBLIC_USER;
+    }
+
+    public void update(RequestUserDTO user) {
+        if (user.username() != null) {
+            this.username = user.username();
+        }
+        if (user.email() != null) {
+            this.email = user.email();
+        }
+        if (user.password() != null) {
+            this.password = user.password();
+        }
+    }
 
     @PrePersist
     protected void onCreate() {
