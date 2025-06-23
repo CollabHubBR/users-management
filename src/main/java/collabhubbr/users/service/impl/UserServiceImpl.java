@@ -1,8 +1,10 @@
 package collabhubbr.users.service.impl;
 
-import collabhubbr.users.DTO.*;
+import collabhubbr.users.controller.DTO.RequestLoginDTO;
+import collabhubbr.users.controller.DTO.RequestUserDTO;
+import collabhubbr.users.controller.DTO.ResponseLoginDTO;
+import collabhubbr.users.controller.DTO.ResponseNewUserDTO;
 import collabhubbr.users.models.UserEntity;
-import collabhubbr.users.security.TokenService;
 import collabhubbr.users.service.PersistenceService;
 import collabhubbr.users.service.UserService;
 import collabhubbr.users.validations.PasswordValidations;
@@ -17,7 +19,7 @@ import org.springframework.stereotype.Service;
 public class UserServiceImpl implements UserService {
 
     private final PasswordEncoder passwordEncoder;
-    private final TokenService tokenService;
+    private final TokenServiceImpl tokenServiceImpl;
     private final PersistenceService persistenceService;
     private final PasswordValidations passwordValidations;
 
@@ -40,7 +42,7 @@ public class UserServiceImpl implements UserService {
 
         this.passwordValidations.validate(user, userEntity);
 
-        String token = this.tokenService.generateToken(userEntity);
+        String token = this.tokenServiceImpl.generateToken(userEntity);
 
         return new ResponseLoginDTO(userEntity, token);
     }

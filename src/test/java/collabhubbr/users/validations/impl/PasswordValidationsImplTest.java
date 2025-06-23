@@ -1,6 +1,7 @@
 package collabhubbr.users.validations.impl;
 
-import collabhubbr.users.DTO.RequestLoginDTO;
+import collabhubbr.users.controller.DTO.RequestLoginDTO;
+import collabhubbr.users.exceptions.CredentialsExceptions;
 import collabhubbr.users.models.UserEntity;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -23,7 +24,7 @@ class PasswordValidationsImplTest {
     PasswordValidationsImpl passwordValidations;
 
     @Test
-    @DisplayName("Validate should throw IllegalArgumentException when password does not match")
+    @DisplayName("Validate should throw CredentialsExceptions when password does not match")
     void case01() {
         RequestLoginDTO requestLoginDTO = new RequestLoginDTO(
                 "john@email.com",
@@ -34,7 +35,7 @@ class PasswordValidationsImplTest {
                 .password("password123")
                 .build();
 
-        assertThrows(IllegalArgumentException.class, () -> {
+        assertThrows(CredentialsExceptions.class, () -> {
             passwordValidations.validate(requestLoginDTO, userEntity);
         });
 

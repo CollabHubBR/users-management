@@ -1,6 +1,6 @@
 package collabhubbr.users.models;
 
-import collabhubbr.users.DTO.RequestUserDTO;
+import collabhubbr.users.controller.DTO.RequestUserDTO;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -15,6 +15,7 @@ public class UserEntity {
     private Long id;
 
     private String username;
+    @Column(unique = true)
     private String email;
     private String password;
     private RoleName roles;

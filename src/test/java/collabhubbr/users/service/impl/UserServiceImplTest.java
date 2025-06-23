@@ -1,11 +1,10 @@
 package collabhubbr.users.service.impl;
 
-import collabhubbr.users.DTO.RequestLoginDTO;
-import collabhubbr.users.DTO.RequestUserDTO;
-import collabhubbr.users.DTO.ResponseNewUserDTO;
+import collabhubbr.users.controller.DTO.RequestLoginDTO;
+import collabhubbr.users.controller.DTO.RequestUserDTO;
+import collabhubbr.users.controller.DTO.ResponseNewUserDTO;
 import collabhubbr.users.models.RoleName;
 import collabhubbr.users.models.UserEntity;
-import collabhubbr.users.security.TokenService;
 import collabhubbr.users.service.PersistenceService;
 import collabhubbr.users.validations.PasswordValidations;
 import org.junit.jupiter.api.BeforeEach;
@@ -29,7 +28,7 @@ class UserServiceImplTest {
     @Mock
     PasswordEncoder passwordEncoder;
     @Mock
-    TokenService tokenService;
+    TokenServiceImpl tokenServiceImpl;
     @Mock
     PersistenceService persistenceService;
     @Mock
@@ -63,7 +62,7 @@ class UserServiceImplTest {
         assertAll("Response",
                 () -> assertNotNull(response),
                 () -> assertEquals(responseNewUserDTO.email(), response.email()),
-                () -> assertEquals(responseNewUserDTO.password(), response.password())
+                () -> assertEquals(responseNewUserDTO.username(), response.username())
         );
         assertAll("Verify",
                 () -> verify(persistenceService, times(1))
@@ -82,7 +81,7 @@ class UserServiceImplTest {
         );
 
         when(persistenceService.findByEmail(requestUserDTO.email())).thenReturn(userEntity);
-        when(tokenService.generateToken(userEntity)).thenReturn("token123");
+        when(tokenServiceImpl.generateToken(userEntity)).thenReturn("token123");
 
         var response = userServiceImpl.loginAccount(requestLoginDTO);
 
@@ -97,7 +96,7 @@ class UserServiceImplTest {
                         .findByEmail(requestUserDTO.email()),
                 () -> verify(passwordValidations, times(1))
                         .validate(any(), any(UserEntity.class)),
-                () -> verify(tokenService, times(1))
+                () -> verify(tokenServiceImpl, times(1))
                         .generateToken(any(UserEntity.class))
         );
     }
