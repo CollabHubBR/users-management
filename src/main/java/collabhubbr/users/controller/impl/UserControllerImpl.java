@@ -31,4 +31,11 @@ public class UserControllerImpl implements UserController {
         return ResponseEntity.ok().body(userService.loginAccount(user));
     }
 
+    @Override
+    public ResponseEntity<Void> updateAccount(String authorization, RequestUserDTO user) {
+        log.info("Received request at endpoint /api/auth/update");
+        this.userService.updateAccount(authorization, user);
+        return ResponseEntity.noContent().build();
+    }
+
 }
