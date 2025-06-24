@@ -2,12 +2,11 @@ package collabhubbr.users.infra.security;
 
 import collabhubbr.users.models.UserEntity;
 import collabhubbr.users.repository.UserRepository;
-import collabhubbr.users.service.impl.TokenServiceImpl;
+import collabhubbr.users.service.TokenService;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -16,13 +15,17 @@ import org.springframework.web.filter.OncePerRequestFilter;
 
 import java.io.IOException;
 import java.util.Collections;
+
 @Component
 public class SecurityFilter extends OncePerRequestFilter {
-    @Autowired
-    private TokenServiceImpl tokenServiceImpl;
 
-    @Autowired
-    private UserRepository userRepository;
+    private final TokenService tokenService;
+    private final UserRepository userRepository;
+
+    public SecurityFilter(TokenService tokenService, UserRepository userRepository) {
+        this.tokenService = tokenService;
+        this.userRepository = userRepository;
+    }
 
     @Override
     protected void doFilterInternal(
@@ -32,7 +35,7 @@ public class SecurityFilter extends OncePerRequestFilter {
     ) throws ServletException, IOException {
         var token = this.recoverToken(request);
 
-        var login = tokenServiceImpl.validateToken(token);
+        var login = tokenService.validateToken(token);
 
         if(login != null){
             UserEntity user = userRepository.findByEmail(login).orElseThrow(
