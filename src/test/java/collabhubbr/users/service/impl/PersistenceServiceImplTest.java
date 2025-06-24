@@ -3,6 +3,7 @@ package collabhubbr.users.service.impl;
 import collabhubbr.users.models.RoleName;
 import collabhubbr.users.models.UserEntity;
 import collabhubbr.users.repository.UserRepository;
+import collabhubbr.users.validations.EmailValidation;
 import jakarta.persistence.EntityNotFoundException;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -24,6 +25,8 @@ class PersistenceServiceImplTest {
 
     @Mock
     UserRepository userRepository;
+    @Mock
+    EmailValidation emailValidation;
     @InjectMocks
     PersistenceServiceImpl persistenceService;
 
@@ -50,6 +53,8 @@ class PersistenceServiceImplTest {
         );
         verify(userRepository, times(1))
                 .save(any());
+        verify(emailValidation, times(1))
+                .validate(any());
     }
 
     @Test
