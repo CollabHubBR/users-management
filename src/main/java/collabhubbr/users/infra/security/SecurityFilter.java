@@ -3,6 +3,7 @@ package collabhubbr.users.infra.security;
 import collabhubbr.users.models.UserEntity;
 import collabhubbr.users.repository.UserRepository;
 import collabhubbr.users.service.TokenService;
+import jakarta.persistence.EntityNotFoundException;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
@@ -39,7 +40,7 @@ public class SecurityFilter extends OncePerRequestFilter {
 
         if(login != null){
             UserEntity user = userRepository.findByEmail(login).orElseThrow(
-                    () -> new RuntimeException("User Not Found")
+                    () -> new EntityNotFoundException("User Not Found")
             );
             var authorities = Collections.singletonList(new SimpleGrantedAuthority("ROLE_USER"));
             var authentication = new UsernamePasswordAuthenticationToken(user, null, authorities);
