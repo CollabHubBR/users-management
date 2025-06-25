@@ -6,6 +6,7 @@ import collabhubbr.users.controller.DTO.ResponseLoginDTO;
 import collabhubbr.users.controller.DTO.ResponseNewUserDTO;
 import collabhubbr.users.models.UserEntity;
 import collabhubbr.users.service.PersistenceService;
+import collabhubbr.users.service.TokenService;
 import collabhubbr.users.service.UserService;
 import collabhubbr.users.validations.PasswordValidations;
 import lombok.RequiredArgsConstructor;
@@ -19,7 +20,7 @@ import org.springframework.stereotype.Service;
 public class UserServiceImpl implements UserService {
 
     private final PasswordEncoder passwordEncoder;
-    private final TokenServiceImpl tokenServiceImpl;
+    private final TokenService tokenService;
     private final PersistenceService persistenceService;
     private final PasswordValidations passwordValidations;
 
@@ -42,9 +43,24 @@ public class UserServiceImpl implements UserService {
 
         this.passwordValidations.validate(user, userEntity);
 
-        String token = this.tokenServiceImpl.generateToken(userEntity);
+        String token = this.tokenService.generateToken(userEntity);
 
         return new ResponseLoginDTO(userEntity, token);
+    }
+
+    @Override
+    public void updateAccount(String authorization, RequestUserDTO user) {
+        String token = authorization.split("Bearer ")[1];
+        log.debug("Extracted token: {}", token);
+
+        String email = this.tokenService.recoverEmail(token);
+        log.debug("Recovered email from token: {}", email);
+
+        UserEntity userEntity = this.persistenceService.findByEmail(email);
+        log.debug("Found user entity: {}", userEntity);
+
+        userEntity.update(user);
+        log.info("User with email {} updated successfully", email);
     }
 
 }

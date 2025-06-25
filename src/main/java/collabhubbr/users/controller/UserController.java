@@ -8,11 +8,14 @@ import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @Tag(name = "User Authentication", description = "Endpoints for user authentication")
@@ -64,5 +67,22 @@ public interface UserController {
     })
     @PostMapping("/login")
     ResponseEntity<ResponseLoginDTO> login(@Valid @RequestBody RequestLoginDTO user);
+
+    @Operation(summary = "Update User Account",
+            description = "Update user account information",
+            security = @SecurityRequirement(name = "bearer")
+    )
+    @ApiResponses(value = {
+            @ApiResponse(
+                    responseCode = "204",
+                    description = "User account updated successfully"
+            ),
+            @ApiResponse(
+                    responseCode = "403",
+                    description = "Unauthorized access"
+            )
+    })
+    @PutMapping("/update")
+    ResponseEntity<Void> updateAccount(@RequestHeader("Authorization") String authorization, @RequestBody RequestUserDTO user);
 
 }

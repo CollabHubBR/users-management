@@ -8,4 +8,5 @@ import collabhubbr.users.controller.DTO.ResponseNewUserDTO;
 public interface UserService {
     ResponseNewUserDTO createAccount(RequestUserDTO user);
     ResponseLoginDTO loginAccount(RequestLoginDTO user);
+    void updateAccount(String authorization, RequestUserDTO user);
 }

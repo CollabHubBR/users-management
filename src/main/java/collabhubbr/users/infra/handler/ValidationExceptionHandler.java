@@ -2,6 +2,8 @@ package collabhubbr.users.infra.handler;
 
 import collabhubbr.users.exceptions.CredentialsExceptions;
 import collabhubbr.users.exceptions.EmailDuplicateException;
+import collabhubbr.users.exceptions.TokenException;
+import jakarta.persistence.EntityNotFoundException;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -44,6 +46,23 @@ public class ValidationExceptionHandler {
         log.warn("Data request exception");
 
         return ResponseEntity.badRequest().body(errors);
+    }
+    @ExceptionHandler(TokenException.class)
+    protected ResponseEntity<MessageError> handleTokenException(
+            TokenException ex) {
+        log.error("Token exception: {}", ex.getMessage());
+        return ResponseEntity.status(401).body(
+                new MessageError(ex.getMessage(), HttpStatus.UNAUTHORIZED)
+        );
+    }
+
+    @ExceptionHandler(EntityNotFoundException.class)
+    protected ResponseEntity<MessageError> handleEntityNotFoundException(
+            EntityNotFoundException ex) {
+        log.error("Entity not found exception: {}", ex.getMessage());
+        return ResponseEntity.status(404).body(
+                new MessageError(ex.getMessage(), HttpStatus.NOT_FOUND)
+        );
     }
 
     private record MessageError(String message, HttpStatus status) {}
