@@ -3,7 +3,6 @@ package collabhubbr.users.service.impl;
 import collabhubbr.users.controller.DTO.RequestLoginDTO;
 import collabhubbr.users.controller.DTO.RequestUserDTO;
 import collabhubbr.users.controller.DTO.ResponseNewUserDTO;
-import collabhubbr.users.models.RoleName;
 import collabhubbr.users.models.UserEntity;
 import collabhubbr.users.service.PersistenceService;
 import collabhubbr.users.validations.PasswordValidations;
@@ -88,8 +87,7 @@ class UserServiceImplTest {
         assertAll("Response",
                 () -> assertNotNull(response),
                 () -> assertEquals(1L, response.id()),
-                () -> assertEquals("token123", response.token()),
-                () -> assertEquals(RoleName.PUBLIC_USER, response.role())
+                () -> assertEquals("token123", response.token())
         );
         assertAll("Verify",
                 () -> verify(persistenceService, times(1))

@@ -1,9 +1,6 @@
 package collabhubbr.users.service.impl;
 
-import collabhubbr.users.controller.DTO.RequestLoginDTO;
-import collabhubbr.users.controller.DTO.RequestUserDTO;
-import collabhubbr.users.controller.DTO.ResponseLoginDTO;
-import collabhubbr.users.controller.DTO.ResponseNewUserDTO;
+import collabhubbr.users.controller.DTO.*;
 import collabhubbr.users.models.UserEntity;
 import collabhubbr.users.service.PersistenceService;
 import collabhubbr.users.service.TokenService;

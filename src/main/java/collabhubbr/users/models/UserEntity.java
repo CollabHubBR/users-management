@@ -18,13 +18,11 @@ public class UserEntity {
     @Column(unique = true)
     private String email;
     private String password;
-    private RoleName roles;
 
     public UserEntity(RequestUserDTO requestUserDTO) {
         this.username = requestUserDTO.username();
         this.email = requestUserDTO.email();
         this.password = requestUserDTO.password();
-        this.roles = RoleName.PUBLIC_USER;
     }
 
     public void update(RequestUserDTO user) {
@@ -36,13 +34,6 @@ public class UserEntity {
         }
         if (user.password() != null) {
             this.password = user.password();
-        }
-    }
-
-    @PrePersist
-    protected void onCreate() {
-        if (this.roles == null) {
-            this.roles = RoleName.PUBLIC_USER;
         }
     }
 }

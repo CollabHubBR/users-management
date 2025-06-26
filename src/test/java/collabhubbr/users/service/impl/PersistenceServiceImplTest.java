@@ -1,6 +1,5 @@
 package collabhubbr.users.service.impl;
 
-import collabhubbr.users.models.RoleName;
 import collabhubbr.users.models.UserEntity;
 import collabhubbr.users.repository.UserRepository;
 import collabhubbr.users.validations.EmailValidation;
