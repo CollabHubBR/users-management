@@ -19,7 +19,7 @@ import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @Tag(name = "User Authentication", description = "Endpoints for user authentication")
-@RequestMapping("/api/auth")
+@RequestMapping("/api/user")
 public interface UserController {
 
     @Operation(
