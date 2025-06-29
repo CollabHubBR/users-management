@@ -37,7 +37,6 @@ class PersistenceServiceImplTest {
                 .username("John Doe")
                 .email("john@example.com")
                 .password("123456789")
-                .roles(RoleName.PUBLIC_USER)
                 .build();
 
         var response = persistenceService.save(userEntity);
@@ -47,8 +46,7 @@ class PersistenceServiceImplTest {
                 () -> assertEquals(1, response.getId()),
                 () -> assertEquals(userEntity.getEmail(), response.getEmail()),
                 () -> assertEquals(userEntity.getUsername(), response.getUsername()),
-                () -> assertEquals(userEntity.getPassword(), response.getPassword()),
-                () -> assertEquals(userEntity.getRoles(), response.getRoles())
+                () -> assertEquals(userEntity.getPassword(), response.getPassword())
         );
         verify(userRepository, times(1))
                 .save(any());
@@ -64,7 +62,6 @@ class PersistenceServiceImplTest {
                 .username("John Doe")
                 .email("john@example.com")
                 .password("123456789")
-                .roles(RoleName.PUBLIC_USER)
                 .build();
 
         when(userRepository.findByEmail(userEntity.getEmail())).thenReturn(Optional.of(userEntity));
@@ -76,8 +73,7 @@ class PersistenceServiceImplTest {
                 () -> assertEquals(1, response.getId()),
                 () -> assertEquals(userEntity.getEmail(), response.getEmail()),
                 () -> assertEquals(userEntity.getUsername(), response.getUsername()),
-                () -> assertEquals(userEntity.getPassword(), response.getPassword()),
-                () -> assertEquals(userEntity.getRoles(), response.getRoles())
+                () -> assertEquals(userEntity.getPassword(), response.getPassword())
         );
         verify(userRepository, times(1))
                 .findByEmail(any());

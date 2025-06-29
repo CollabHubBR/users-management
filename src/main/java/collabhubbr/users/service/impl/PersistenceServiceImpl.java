@@ -1,5 +1,6 @@
 package collabhubbr.users.service.impl;
 
+import collabhubbr.users.controller.DTO.ResponseUserDTO;
 import collabhubbr.users.exceptions.EmailDuplicateException;
 import collabhubbr.users.models.UserEntity;
 import collabhubbr.users.repository.UserRepository;
@@ -17,6 +18,12 @@ public class PersistenceServiceImpl implements PersistenceService {
 
     private final UserRepository userRepository;
     private final EmailValidation emailValidation;
+
+    @Override
+    public ResponseUserDTO findUserById(Long id) {
+       UserEntity infos =  userRepository.findById(id).orElseThrow(EntityNotFoundException::new);
+       return new ResponseUserDTO(infos.getId(), infos.getUsername(), infos.getEmail());
+    }
 
     @Override
     public UserEntity save(UserEntity userEntity) {

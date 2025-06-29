@@ -3,6 +3,7 @@ package collabhubbr.users.controller.impl;
 import collabhubbr.users.controller.DTO.RequestLoginDTO;
 import collabhubbr.users.controller.DTO.RequestUserDTO;
 import collabhubbr.users.controller.DTO.ResponseLoginDTO;
+import collabhubbr.users.controller.DTO.ResponseUserDTO;
 import collabhubbr.users.controller.UserController;
 import collabhubbr.users.service.UserService;
 import lombok.RequiredArgsConstructor;
@@ -17,6 +18,11 @@ import org.springframework.web.bind.annotation.*;
 @RequiredArgsConstructor
 public class UserControllerImpl implements UserController {
     private final UserService userService;
+
+    @Override
+    public ResponseEntity<ResponseUserDTO> getUserInfos(Long id) {
+        return ResponseEntity.ok().body(userService.getInfo(id));
+    }
 
     @Override
     public ResponseEntity<Void> register(RequestUserDTO user) {

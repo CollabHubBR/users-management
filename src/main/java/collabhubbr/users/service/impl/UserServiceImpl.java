@@ -21,6 +21,12 @@ public class UserServiceImpl implements UserService {
     private final PersistenceService persistenceService;
     private final PasswordValidations passwordValidations;
 
+
+    @Override
+    public ResponseUserDTO getInfo(Long id) {
+        return persistenceService.findUserById(id);
+    }
+
     @Override
     public ResponseNewUserDTO createAccount(RequestUserDTO user) {
         UserEntity userEntity = UserEntity.builder()
