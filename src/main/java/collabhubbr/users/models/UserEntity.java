@@ -3,6 +3,9 @@ package collabhubbr.users.models;
 import collabhubbr.users.controller.DTO.RequestUserDTO;
 import jakarta.persistence.*;
 import lombok.*;
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
+import java.sql.Timestamp;
 
 @Entity
 @Data
@@ -18,6 +21,12 @@ public class UserEntity {
     @Column(unique = true)
     private String email;
     private String password;
+
+    @CreationTimestamp
+    private Timestamp createdAt;
+
+    @UpdateTimestamp
+    private Timestamp updatedAt;
 
     public UserEntity(RequestUserDTO requestUserDTO) {
         this.username = requestUserDTO.username();
