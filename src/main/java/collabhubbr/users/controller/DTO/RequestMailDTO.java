@@ -4,6 +4,10 @@ import jakarta.validation.constraints.NotBlank;
 
 public record RequestMailDTO(
         @NotBlank
-        String toMail
+        String to,
+        @NotBlank
+        String subject,
+        @NotBlank
+        String text
 ) {
 }

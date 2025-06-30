@@ -1,7 +1,6 @@
 package collabhubbr.users.service.impl;
 
 import collabhubbr.users.controller.DTO.RequestMailDTO;
-import collabhubbr.users.controller.DTO.ResponseMailDTO;
 import collabhubbr.users.service.MailService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,13 +19,12 @@ public class MailServiceImpl implements MailService {
     private String senderFrom;
 
     @Override
-    public ResponseMailDTO sendMail(RequestMailDTO requestMailDTO) {
+    public void sendMail(RequestMailDTO requestMailDTO) {
         SimpleMailMessage mailMessage = new SimpleMailMessage();
         mailMessage.setFrom(senderFrom);
-        mailMessage.setTo(requestMailDTO.toMail());
+        mailMessage.setTo(requestMailDTO.to());
         mailMessage.setSubject("Verificação de Email");
         mailMessage.setText("Formatação contendo o token");
         mailSender.send(mailMessage);
-        return new ResponseMailDTO("danieltenorio2046@gmail.com", "Daniel Tenorio", "Daniel Tenorio");
     }
 }
