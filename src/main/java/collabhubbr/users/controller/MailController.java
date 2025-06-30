@@ -9,6 +9,5 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 @RequestMapping("/api/mail")
 public interface MailController{
-    @PostMapping("/confirm/{id}")
-    ResponseEntity<Void> sendTokenMail(@RequestBody RequestMailDTO requestMailDTO);
+    @PostMapping ResponseEntity<Void> sendTokenMail(@RequestBody RequestMailDTO requestMailDTO);
 }

@@ -23,8 +23,8 @@ public class MailServiceImpl implements MailService {
         SimpleMailMessage mailMessage = new SimpleMailMessage();
         mailMessage.setFrom(senderFrom);
         mailMessage.setTo(requestMailDTO.to());
-        mailMessage.setSubject("Verificação de Email");
-        mailMessage.setText("Formatação contendo o token");
+        mailMessage.setSubject(requestMailDTO.subject());
+        mailMessage.setText(requestMailDTO.text());
         mailSender.send(mailMessage);
     }
 }
